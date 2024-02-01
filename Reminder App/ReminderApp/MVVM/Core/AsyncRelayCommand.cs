@@ -23,7 +23,7 @@ namespace ReminderApp.MVVM.Core
         public AsyncRelayCommand(Func<object, Task> execute)
         {
             _execute = execute;
-            _canExecute = null;
+            _canExecute = null!;
         }
         public AsyncRelayCommand(Func<object, Task> execute, Predicate<object> canExecute)
         {
@@ -34,17 +34,17 @@ namespace ReminderApp.MVVM.Core
         //public AsyncRelayCommand(Func<object, Task> execute) : this(execute, null)
         //{ }
 
-        public virtual bool CanExecute(object parameter)
+        public virtual bool CanExecute(object? parameter)
         {
             //return _canExecute is null || _canExecute(parameter);
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null ? true : _canExecute(parameter!);
         }
 
-        public async void Execute(object parameter)
+        public async void Execute(object? parameter)
         {
             try
             {
-                await _execute.Invoke(parameter);
+                await _execute.Invoke(parameter!);
             }
             catch (Exception ex)
             {

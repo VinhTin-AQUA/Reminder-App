@@ -20,7 +20,7 @@ namespace ReminderApp.MVVM.Core
         public RelayCommand(Action<object> execute)
         {
             _execute = execute;
-            _canExecute = null;
+            _canExecute = null!;
         }
 
         public RelayCommand(Action<object> execute, Predicate<object> canExecute)
@@ -31,12 +31,12 @@ namespace ReminderApp.MVVM.Core
 
         public bool CanExecute(object? parameter)
         {
-            return _canExecute == null ? true : _canExecute(parameter);
+            return _canExecute == null ? true : _canExecute(parameter!);
         }
 
         public void Execute(object? parameter)
         {
-            _execute(parameter);
+            _execute(parameter!);
         }
 
     }

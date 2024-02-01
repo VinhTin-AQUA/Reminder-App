@@ -23,6 +23,7 @@ namespace ReminderApp.MVVM.ViewModels
 
         public AddReminderViewModel()
         {
+            reminders = null!;
             Reminders = [
                 "Don't repeat",
                 "Monday",

@@ -18,11 +18,9 @@ namespace ReminderApp.MVVM.ViewModels
             set { currentChildView = value; OnPropertyChanged(); }
         }
 
-
-
         public MainViewModel()
         {
-            
+            currentChildView = null!;
 
             CurrentChildView = new HomeViewModel();
         }
@@ -35,6 +33,11 @@ namespace ReminderApp.MVVM.ViewModels
         public void ExecuteRedirectToHomeViewCommand(object parameter)
         {
             CurrentChildView = new HomeViewModel();
+        }
+
+        public void ExecuteRedirectToStopRemindingViewCommand(object parameter)
+        {
+            CurrentChildView = new StopRemindingViewModel();
         }
     }
 }

@@ -42,6 +42,10 @@
             <view:HomeView></view:HomeView>
         </DataTemplate>
 
+        <DataTemplate DataType="{x:Type viewModel:StopRemindingViewModel}">
+            <view:StopRemindingView></view:StopRemindingView>
+        </DataTemplate>
+
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>
     </Window.Resources>
 

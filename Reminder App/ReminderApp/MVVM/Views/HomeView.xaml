@@ -10,33 +10,13 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        <Style x:Key="iconBtn" TargetType="{x:Type fa:IconImage}">
-            <Setter Property="Foreground" Value="#1e1b4b"></Setter>
-            <Setter Property="Cursor" Value="Hand"></Setter>
-            <Setter Property="Width" Value="30"></Setter>
-            <Setter Property="Margin" Value="3"></Setter>
-        </Style>
-
-        <Style x:Key="btnContainer" TargetType="Grid">
-            <Setter Property="Background" Value="#ccfbf1"></Setter>
-            <Setter Property="Width" Value="160"></Setter>
-            <Setter Property="Height" Value="30"></Setter>
-            <Setter Property="Margin" Value="3"></Setter>
-
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#fef9c3"></Setter>
-                </Trigger>
-            </Style.Triggers>
-            
-        </Style>
+        
         
     </UserControl.Resources>
 
     <UserControl.DataContext>
         <viewModel:HomeViewModel></viewModel:HomeViewModel>
     </UserControl.DataContext>
-    
     
     <Grid Background="#1e1b4b">
         <Grid.ColumnDefinitions>
@@ -59,6 +39,22 @@
                             <Grid Style="{StaticResource btnContainer}">
                                 <fa:IconImage Style="{StaticResource iconBtn}" 
                       Icon="PlusSquare"></fa:IconImage>
+                            </Grid>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
+                <Button Margin="0,0,0,10"
+                        Command="{Binding NavigateToStopRemindingViewCommand}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Grid Style="{StaticResource btnContainer}">
+                                <TextBlock Text="Start"
+                                           FontSize="15"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center"
+                                           FontWeight="Medium"
+                                           Foreground="#1e1b4b"></TextBlock>
                             </Grid>
                         </ControlTemplate>
                     </Button.Template>
@@ -93,6 +89,7 @@
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
+                
             </StackPanel>
             
         </Border>
