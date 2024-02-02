@@ -1,4 +1,6 @@
-﻿using ReminderApp.MVVM.Core;
+﻿using Newtonsoft.Json.Linq;
+using ReminderApp.MVVM.Core;
+using ReminderApp.MVVM.Models;
 using ReminderApp.MVVM.Stores;
 using System;
 using System.Collections.Generic;
@@ -11,29 +13,32 @@ namespace ReminderApp.MVVM.ViewModels
 {
     public class AddReminderViewModel : ViewModelBase
     {
-        private List<string> reminders;
+        private Array weekDays;
+        private ReminderModel reminderModel;
 
-        public List<string> Reminders
+
+        public Array WeekDays
         {
-            get { return reminders; }
-            set { reminders = value; OnPropertyChanged(); }
+            get { return weekDays; }
+            set { weekDays = value; OnPropertyChanged(); }
         }
 
+        public ReminderModel ReminderModel
+        {
+            get { return reminderModel; }
+            set { reminderModel = value; OnPropertyChanged(); }
+        }
+
+        
         public ICommand NavigateHomeViewCommand { get; set; }
 
         public AddReminderViewModel()
         {
-            reminders = null!;
-            Reminders = [
-                "Don't repeat",
-                "Monday",
-                "Tuesday",
-                "Wednesday",
-                "Thursday",
-                "Friday",
-                "Saturday",
-                "Sunday"
-            ];
+            reminderModel = null!;
+            weekDays = null!;
+
+            WeekDays = Enum.GetValues(typeof(DaysOfWeek)); ;
+            ReminderModel = new ReminderModel();
             NavigateHomeViewCommand = new RelayCommand(ExecuteNavigateHomeViewCommand);
         }
         private void ExecuteNavigateHomeViewCommand(object parameter)
@@ -42,5 +47,14 @@ namespace ReminderApp.MVVM.ViewModels
             context!.ExecuteRedirectToHomeViewCommand(null!);
         }
 
+        public void AddWeekDay(DaysOfWeek weekDay)
+        {
+            ReminderModel.DaysOfWeek.Add(weekDay);
+        }
+
+        public void RemoveWeekDay(DaysOfWeek weekDay)
+        {
+            ReminderModel.DaysOfWeek.Remove(weekDay);
+        }
     }
 }

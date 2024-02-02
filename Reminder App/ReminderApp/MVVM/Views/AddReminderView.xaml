@@ -164,16 +164,19 @@
             </Button>
 
             <ComboBox Margin="10,0,10,0"
-                      ItemsSource="{Binding Reminders}" 
+                      ItemsSource="{Binding WeekDays}" 
                       Width="200"
                       SelectedIndex="0"
                       Style="{StaticResource ComboBoxTest2}">
-                
+                    
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
                         <StackPanel Orientation="Horizontal"
                                     VerticalAlignment="Center">
                             <CheckBox Margin="0,0,5,0"
+                                      Checked="CheckBox_Checked"
+                                      Unchecked="CheckBox_Unchecked"
+                                      Tag="{Binding}"
                                       Style="{StaticResource checkBox}">
 
                             </CheckBox>
@@ -182,8 +185,6 @@
                         </StackPanel>
                     </DataTemplate>
                 </ComboBox.ItemTemplate>
-                
-                
             </ComboBox>
 
             <StackPanel Orientation="Horizontal"
@@ -198,13 +199,15 @@
                            Style="{StaticResource timeHeader}"></TextBlock>
 
                 <TextBox x:Name="hourInput" 
+                         Text="{Binding ReminderModel.Hours}"
                          Style="{StaticResource timeValue}"
                          PreviewTextInput="hourInput_PreviewTextInput"></TextBox>
 
                 <TextBlock Text="Minutes"
                            Style="{StaticResource timeHeader}"></TextBlock>
 
-                <TextBox x:Name="minuteInput" 
+                <TextBox x:Name="minuteInput"
+                         Text="{Binding ReminderModel.Minutes}"
                          Style="{StaticResource timeValue}"
                          PreviewTextInput="hourInput_PreviewTextInput"></TextBox>
 
@@ -212,12 +215,13 @@
                            Style="{StaticResource timeHeader}"></TextBlock>
 
                 <TextBox x:Name="secondInput"
+                         Text="{Binding ReminderModel.Seconds}"
                          Style="{StaticResource timeValue}"
                          PreviewTextInput="hourInput_PreviewTextInput"></TextBox>
 
             </StackPanel>
             
-            <Button>
+            <Button Click="Button_Click">
                 <Button.Template>
                     <ControlTemplate>
                         <Grid>
@@ -233,6 +237,7 @@
         <Grid Grid.Row="1">
             <TextBox Padding="10"
                      Margin="5"
+                     Text="{Binding ReminderModel.Content}"
                      TextWrapping="Wrap"
                      FontSize="20"></TextBox>
         </Grid>
