@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,20 @@ namespace ReminderApp.MVVM.Views
         public AddReminderView()
         {
             InitializeComponent();
+        }
+
+        private void hourInput_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            if (e.Text == "")
+            {
+                return;
+            }
+
+            // Chỉ cho phép nhập các ký tự số
+            if (!char.IsDigit(e.Text, e.Text.Length - 1))
+            {
+                e.Handled = true;
+            }
         }
     }
 }
