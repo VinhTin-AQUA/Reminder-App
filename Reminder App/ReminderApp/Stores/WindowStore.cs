@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ReminderApp.MVVM.Stores
+namespace ReminderApp.Stores
 {
     public class WindowStore
     {
@@ -12,13 +12,13 @@ namespace ReminderApp.MVVM.Stores
 
         public static MainWindow? MainWindow
         {
-            get 
-            { 
+            get
+            {
                 if (mainWindow == null)
                 {
                     mainWindow = new MainWindow();
                 }
-                return mainWindow; 
+                return mainWindow;
             }
             set { mainWindow = value; }
         }

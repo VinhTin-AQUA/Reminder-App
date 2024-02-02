@@ -8,15 +8,30 @@ namespace ReminderApp.Utils
 {
     public static class Urls
     {
-        private static string dataUrl = @"C:\Users\tinho\Desktop\Projects\Reminder-App\Reminder App\ReminderApp\Data\";
+        private static string dataUrl = @"./Data";
 
-        private static string remiderUrl = "reminderInfo";
+        private static string remiderUrl = "/reminderInfo.json";
+        private static string idUrl = "/identity.txt";
+
+
+        public static string DataUrl
+        {
+            get { return dataUrl; }
+        }
 
         public static string RemiderUrl
         {
             get 
             { 
                 return dataUrl + remiderUrl; 
+            }
+        }
+
+        public static string IdUrl
+        {
+            get
+            {
+                return dataUrl + idUrl;
             }
         }
     }

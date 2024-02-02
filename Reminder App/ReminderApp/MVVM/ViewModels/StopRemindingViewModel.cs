@@ -1,5 +1,5 @@
 ﻿using ReminderApp.MVVM.Core;
-using ReminderApp.MVVM.Stores;
+using ReminderApp.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
