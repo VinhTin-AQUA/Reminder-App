@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ReminderApp.MVVM.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,9 @@ namespace ReminderApp.Stores
     public class WindowStore
     {
         private static MainWindow? mainWindow = null;
+
+
+        #region main window
 
         public static MainWindow? MainWindow
         {
@@ -22,6 +26,15 @@ namespace ReminderApp.Stores
             }
             set { mainWindow = value; }
         }
+
+
+        public static void NaivigateHomeChild()
+        {
+            var context = MainWindow!.DataContext as MainViewModel;
+            context!.ExecuteRedirectToHomeViewCommand(null!);
+        }
+
+        #endregion
 
     }
 }

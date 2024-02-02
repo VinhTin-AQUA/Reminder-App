@@ -27,7 +27,6 @@
         <Border Grid.Column="0"
                     BorderThickness="0,0,1,0"
                 BorderBrush="#f9fafb">
-
             <StackPanel
                 VerticalAlignment="Top"
                 HorizontalAlignment="Center">
@@ -91,11 +90,40 @@
                 </Button>
                 
             </StackPanel>
-            
         </Border>
 
-        <Grid Grid.Column="1">
-        </Grid>
-        
+        <WrapPanel Grid.Column="1" 
+                   Margin="5">
+            <ItemsControl ItemsSource="{Binding Reminders, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Button Width="100">
+                            <Button.Template>
+                                <ControlTemplate>
+                                    <StackPanel Width="100" Background="Red">
+                                        <TextBlock Text="{Binding Content}" />
+                                        <TextBlock Text="Duration" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Hours}" />
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding Minutes}" />
+                                            <TextBlock Text=" : " />
+                                            <TextBlock Text="{Binding Seconds}" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </WrapPanel>
     </Grid>
 </UserControl>

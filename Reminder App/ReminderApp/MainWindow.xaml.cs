@@ -61,7 +61,7 @@ namespace ReminderApp
 
         private void close_Click(object sender, RoutedEventArgs e)
         {
-            var r = MessageBox.Show("Bạn có muốn thoát", "Thoát ứng dụng", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            var r = MessageBox.Show("Do you want to exist", "Exist", MessageBoxButton.OKCancel, MessageBoxImage.Question);
             if(r == MessageBoxResult.OK)
             {
                 Application.Current.Shutdown();

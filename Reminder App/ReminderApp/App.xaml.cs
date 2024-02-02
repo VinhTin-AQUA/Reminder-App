@@ -13,7 +13,7 @@ namespace ReminderApp
     {
         private async void Application_Startup(object sender, StartupEventArgs e)
         {
-            await DataContext.InitData();
+            await ReminderDataContext.InitData();
             WindowStore.MainWindow!.Show();
         }
     }

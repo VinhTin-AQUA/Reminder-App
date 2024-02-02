@@ -10,9 +10,12 @@ using System.Threading.Tasks;
 
 namespace ReminderApp.Utils
 {
-    public static class DataContext
+    public static class ReminderDataContext
     {
         public static int Id { get; set; } = 0;
+
+        public static List<ReminderModel>? Reminders { get; set; }
+
 
         public static async Task InitData()
         {
@@ -20,7 +23,7 @@ namespace ReminderApp.Utils
             {
                 Directory.CreateDirectory(Urls.DataUrl);
             }
-            using (var fileStream = new FileStream(Urls.RemiderUrl, FileMode.Create, FileAccess.ReadWrite)) { }
+            using (var fileStream = new FileStream(Urls.RemiderUrl, FileMode.OpenOrCreate, FileAccess.ReadWrite)) { }
             using (var fileStream = new FileStream(Urls.IdUrl, FileMode.OpenOrCreate, FileAccess.ReadWrite)) 
             {
                 using (var sr = new StreamReader(fileStream) )
@@ -35,6 +38,8 @@ namespace ReminderApp.Utils
                     }
                 }
             }
+
+            await ReadRemindes();
         }
 
         public static async Task SaveReminder(ReminderModel model)
@@ -59,6 +64,23 @@ namespace ReminderApp.Utils
                 await WriteLastedId(model.Id);
             }
         }
+
+        public static async Task ReadRemindes()
+        {
+            using (var sr = new StreamReader(Urls.RemiderUrl))
+            {
+                var content = await sr.ReadToEndAsync();
+                Reminders = JsonConvert.DeserializeObject<List<ReminderModel>>(content);
+                if(Reminders == null)
+                {
+                    Reminders = new List<ReminderModel>();
+                }
+            }
+        }
+
+
+
+
 
         private static async Task WriteLastedId(int id)
         {

@@ -59,8 +59,7 @@ namespace ReminderApp.MVVM.ViewModels
         }
         private void ExecuteNavigateHomeViewCommand(object parameter)
         {
-            var context = WindowStore.MainWindow!.DataContext as MainViewModel;
-            context!.ExecuteRedirectToHomeViewCommand(null!);
+            WindowStore.NaivigateHomeChild();
         }
 
         private void ExecuteAddDayOfWeekCommand(object obj)
@@ -148,9 +147,10 @@ namespace ReminderApp.MVVM.ViewModels
             ReminderModel.Hours = hours;
             ReminderModel.Minutes = minutes;
             ReminderModel.Seconds = seconds;
-            ReminderModel.Id = DataContext.Id;
+            ReminderModel.Id = ReminderDataContext.Id;
 
-            await DataContext.SaveReminder(ReminderModel);
+            await ReminderDataContext.SaveReminder(ReminderModel);
+            WindowStore.NaivigateHomeChild();
         }
 
         private static bool IsNumeric(string text, ref int value)
