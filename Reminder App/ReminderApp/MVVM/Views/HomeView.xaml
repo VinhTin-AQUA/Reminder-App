@@ -10,120 +10,211 @@
              d:DesignHeight="450" d:DesignWidth="800">
 
     <UserControl.Resources>
-        
+
+        <Style x:Key="homeMenuButtonItem" TargetType="Button">
+            <Setter Property="Margin" Value="0,10,0,10"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+        </Style>
+
+        <Style x:Key="homeMenuItemBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="CornerRadius" Value="8"></Setter>
+            <Setter Property="Background" Value="#d9f99d"></Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" 
+                              Color="#65a30d" 
+                              BlurRadius="5" 
+                              Opacity="1"/>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7dd3fc"></Setter>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+
+        <Style x:Key="homeMenuItemGrid" TargetType="Grid">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Width" Value="160"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+
+        <Style x:Key="homeMenuTextBlockItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Foreground" Value="#1e1b4b"></Setter>
+        </Style>
         
     </UserControl.Resources>
 
     <UserControl.DataContext>
         <viewModel:HomeViewModel></viewModel:HomeViewModel>
     </UserControl.DataContext>
-    
-    <Grid Background="#1e1b4b">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"></ColumnDefinition>
-            <ColumnDefinition></ColumnDefinition>
-        </Grid.ColumnDefinitions>
 
-        <Border Grid.Column="0"
-                    BorderThickness="0,0,1,0"
-                BorderBrush="#f9fafb">
-            <StackPanel
-                VerticalAlignment="Top"
-                HorizontalAlignment="Center">
-                <Button Margin="0,10,0,10"
-                        Cursor="Hand"
-                        Command="{Binding NavigateToAddReminderCommand}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid Style="{StaticResource btnContainer}">
-                                <fa:IconImage Style="{StaticResource iconBtn}" 
-                      Icon="PlusSquare"></fa:IconImage>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+    <Border Background="White"
+            CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-                <Button Margin="0,0,0,10"
-                        Command="{Binding NavigateToStopRemindingViewCommand}">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid Style="{StaticResource btnContainer}">
-                                <TextBlock Text="Start"
-                                           FontSize="15"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           FontWeight="Medium"
-                                           Foreground="#1e1b4b"></TextBlock>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+            <Border Grid.Column="0"
+                    BorderThickness="0"
+                    BorderBrush="#f9fafb"
+                    Background="White"
+                    CornerRadius="6" Margin="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" 
+                                      Color="Gray" 
+                                      BlurRadius="4" 
+                                      Opacity="1"/>
+                </Border.Effect>
 
-                <Button Margin="0,0,0,10">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid Style="{StaticResource btnContainer}">
-                                <TextBlock Text="ALL"
-                                           FontSize="15"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           FontWeight="Medium"
-                                           Foreground="#1e1b4b"></TextBlock>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                <StackPanel VerticalAlignment="Top"
+                            HorizontalAlignment="Center">
+                    <Button Style="{StaticResource homeMenuButtonItem}" Command="{Binding NavigateToAddReminderCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource homeMenuItemBorder}">
 
-                <Button Margin="0,0,0,10">
-                    <Button.Template>
-                        <ControlTemplate>
-                            <Grid Style="{StaticResource btnContainer}">
-                                <TextBlock Text="Today"
-                                           FontSize="15"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center"
-                                           FontWeight="Medium"
-                                           Foreground="#1e1b4b"></TextBlock>
-                            </Grid>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                
-            </StackPanel>
-        </Border>
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <fa:IconImage Style="{StaticResource iconBtn}" 
+                                                        Icon="PlusSquare"></fa:IconImage>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-        <WrapPanel Grid.Column="1" 
-                   Margin="5">
-            <ItemsControl ItemsSource="{Binding Reminders, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+                    <Button Style="{StaticResource homeMenuButtonItem}"
+                            Command="{Binding NavigateToStopRemindingViewCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal" />
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                                <Border Style="{StaticResource homeMenuItemBorder}">
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <TextBlock Text="Start"
+                                                    Style="{StaticResource homeMenuTextBlockItem}"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Button Width="100">
-                            <Button.Template>
-                                <ControlTemplate>
-                                    <StackPanel Width="100" Background="Red">
-                                        <TextBlock Text="{Binding Content}" />
-                                        <TextBlock Text="Duration" />
-                                        <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Hours}" />
-                                            <TextBlock Text=" : " />
-                                            <TextBlock Text="{Binding Minutes}" />
-                                            <TextBlock Text=" : " />
-                                            <TextBlock Text="{Binding Seconds}" />
-                                        </StackPanel>
-                                    </StackPanel>
-                                </ControlTemplate>
-                            </Button.Template>
-                        </Button>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-        </WrapPanel>
-    </Grid>
+                    <Button Style="{StaticResource homeMenuButtonItem}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource homeMenuItemBorder}">
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <TextBlock Text="ALL"
+                                                    Style="{StaticResource homeMenuTextBlockItem}"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource homeMenuButtonItem}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource homeMenuItemBorder}">
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <TextBlock Text="Today"
+            Style="{StaticResource homeMenuTextBlockItem}"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                </StackPanel>
+            </Border>
+
+            <Border  Grid.Column="1"
+                    BorderThickness="0"
+                    BorderBrush="#f9fafb"
+                    Background="White"
+                    CornerRadius="6" Margin="5">
+
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" 
+                      Color="Gray" 
+                      BlurRadius="4" 
+                      Opacity="1"/>
+                </Border.Effect>
+
+                <ScrollViewer Margin="5">
+                    <WrapPanel>
+                        <ItemsControl ItemsSource="{Binding Reminders, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Width="230"
+                                                Height="80"
+                                                Margin="5">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Border>
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="BorderThickness" Value="2"></Setter>
+                                                            <Setter Property="Background" Value="#d9f99d"></Setter>
+                                                            <Setter Property="CornerRadius" Value="5"></Setter>
+                                                            <Setter Property="Padding" Value="5"></Setter>
+                                                            <Setter Property="Effect">
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect ShadowDepth="0" Color="#65a30d" BlurRadius="5" Opacity="1"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#7dd3fc"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Content}" 
+                                                                   FontSize="14"
+                                                                   FontWeight="Medium"
+                                                                   Foreground="#1d4ed8"
+                                                                   TextWrapping="Wrap" />
+                                                        <TextBlock Text="Duration"
+                                                                    FontWeight="Medium"/>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Hours}" />
+                                                            <TextBlock Text=" : " />
+                                                            <TextBlock Text="{Binding Minutes}" />
+                                                            <TextBlock Text=" : " />
+                                                            <TextBlock Text="{Binding Seconds}" />
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
 </UserControl>

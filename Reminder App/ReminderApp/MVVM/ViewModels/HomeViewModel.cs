@@ -27,6 +27,7 @@ namespace ReminderApp.MVVM.ViewModels
 
         public HomeViewModel()
         {
+            reminders = null!;
             NavigateToAddReminderCommand = new RelayCommand(ExecuteNavigateToAddReminderCommand);
             NavigateToStopRemindingViewCommand = new RelayCommand(ExecuteNavigateToNavigateToStopRemindingViewCommand);
             Init();
