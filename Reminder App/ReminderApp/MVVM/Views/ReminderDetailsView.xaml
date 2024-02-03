@@ -223,6 +223,26 @@
 
                 </StackPanel>
 
+                <Button Command="{Binding DeleteReminderCommand}"
+                        CommandParameter="{Binding Id}">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border CornerRadius="2">
+                                <Grid>
+                                    <fa:IconImage ToolTip="Delete"
+                                                Icon="TrashAlt" IconFont="Solid">
+                                        <fa:IconImage.Style>
+                                            <Style TargetType="{x:Type fa:IconImage}" BasedOn="{StaticResource icon}">
+                                                <Setter Property="Foreground" Value="#dc2626"></Setter>
+                                            </Style>
+                                        </fa:IconImage.Style>
+                                    </fa:IconImage>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+
                 <Button Command="{Binding UpdateReminderCommand}">
                     <Button.Template>
                         <ControlTemplate>

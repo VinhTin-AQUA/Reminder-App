@@ -14,7 +14,6 @@ namespace ReminderApp.MVVM.ViewModels
 {
     public class ReminderDetailsViewModel : ViewModelBase
     {
-        //private ReminderModel reminder;
         private int id;
         private string hours;
         private string minutes;
@@ -22,13 +21,6 @@ namespace ReminderApp.MVVM.ViewModels
         private string content;
         private List<DayRepeat> dayRepeats;
         private List<int> dayRepeated;
-
-
-        //public ReminderModel Reminder
-        //{
-        //    get { return reminder; }
-        //    set { reminder = value; OnPropertyChanged(); }
-        //}
 
         public int Id
         {
@@ -75,7 +67,7 @@ namespace ReminderApp.MVVM.ViewModels
         public ICommand UpdateReminderCommand { get; set; }
         public ICommand UpdateDayOfWeekCommand { get; set; }
         public ICommand NavigateHomeViewCommand { get; set; }
-
+        public ICommand DeleteReminderCommand { get; set; }
 
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
@@ -109,6 +101,7 @@ namespace ReminderApp.MVVM.ViewModels
             UpdateReminderCommand = new AsyncRelayCommand(ExecuteUpdateReminderCommand);
             UpdateDayOfWeekCommand = new RelayCommand(ExecuteUpdateDayOfWeekCommand);
             NavigateHomeViewCommand = new RelayCommand(ExecuteNavigateHomeViewCommand);
+            DeleteReminderCommand = new AsyncRelayCommand(ExecuteDeleteReminderCommand);
         }
 
         private async Task ExecuteUpdateReminderCommand(object parameter)
@@ -213,6 +206,19 @@ namespace ReminderApp.MVVM.ViewModels
             {
                 return;
             }
+            WindowStore.NaivigateHomeChild();
+        }
+
+        private async Task ExecuteDeleteReminderCommand(object parameter)
+        {
+            var r = MessageBox.Show("Do you want to remove this reminder?", "Remove reminder",
+                MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            if(r == MessageBoxResult.Cancel)
+            {
+                return;
+            }
+            int id = (int)parameter;
+            await ReminderDataContext.DeleteReminder(id);
             WindowStore.NaivigateHomeChild();
         }
 

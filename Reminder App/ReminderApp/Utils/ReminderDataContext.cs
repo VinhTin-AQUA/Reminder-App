@@ -89,10 +89,25 @@ namespace ReminderApp.Utils
             using (var sw = new StreamWriter(Urls.RemiderUrl, false))
             {
                 await sw.WriteAsync(jsonContent);
-                await WriteLastedId(model.Id);
             }
         }
 
+        public static async Task DeleteReminder(int id)
+        {
+            var reminder = Reminders!
+                .Where(r => r.Id == id)
+                .FirstOrDefault();
+            if(reminder == null)
+            {
+                return;
+            }
+            Reminders!.Remove(reminder);
+            var jsonContent = JsonConvert.SerializeObject(Reminders, Formatting.Indented);
+            using (var sw = new StreamWriter(Urls.RemiderUrl, false))
+            {
+                await sw.WriteAsync(jsonContent);
+            }
+        }
 
 
         private static async Task WriteLastedId(int id)
