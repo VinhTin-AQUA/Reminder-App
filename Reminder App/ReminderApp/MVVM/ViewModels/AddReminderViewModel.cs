@@ -140,7 +140,7 @@ namespace ReminderApp.MVVM.ViewModels
                 return;
             }
 
-            if (seconds < 10 && hours == 0 && minutes == 0)
+            if (seconds < 5 && hours == 0 && minutes == 0)
             {
                 MessageBox.Show("The time must be at least 10 seconds.",
                                    "Error: Seconds",

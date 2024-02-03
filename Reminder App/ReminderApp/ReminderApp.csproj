@@ -11,6 +11,7 @@
   <ItemGroup>
     <PackageReference Include="FontAwesome.Sharp" Version="6.3.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Notification.Wpf" Version="8.0.0" />
   </ItemGroup>
 
 </Project>

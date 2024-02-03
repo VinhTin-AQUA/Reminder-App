@@ -145,9 +145,9 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
-             BorderBrush="#65a30d"
-             BorderThickness="0,0,2,0"
-             Background="#65a30d">
+                 BorderBrush="#65a30d"
+                 BorderThickness="0,0,2,0"
+                 Background="#65a30d">
             <StackPanel Orientation="Horizontal"
                      VerticalAlignment="Center"
                      Margin="10,0,0,0">
@@ -243,7 +243,8 @@
                     </Button.Template>
                 </Button>
 
-                <Button Command="{Binding UpdateReminderCommand}">
+                <Button Command="{Binding UpdateReminderCommand}"
+                        CommandParameter="{Binding Id}">
                     <Button.Template>
                         <ControlTemplate>
                             <Border CornerRadius="2">

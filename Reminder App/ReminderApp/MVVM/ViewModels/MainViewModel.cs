@@ -38,7 +38,7 @@ namespace ReminderApp.MVVM.ViewModels
 
         public void ExecuteRedirectToStopRemindingViewCommand(object parameter)
         {
-            CurrentChildView = new StopRemindingViewModel();
+            CurrentChildView = new StartRemindingViewModel();
         }
 
         public void NavigateToReminderDetails(ReminderModel model)

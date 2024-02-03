@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace ReminderApp.MVVM.Views
 {
     /// <summary>
-    /// Interaction logic for StopRemindingView.xaml
+    /// Interaction logic for StartRemindingView.xaml
     /// </summary>
-    public partial class StopRemindingView : UserControl
+    public partial class StartRemindingView : UserControl
     {
-        public StopRemindingView()
+        public StartRemindingView()
         {
             InitializeComponent();
         }

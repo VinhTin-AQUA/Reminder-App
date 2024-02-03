@@ -109,6 +109,7 @@ namespace ReminderApp.MVVM.ViewModels
             int hours = 0;
             int minutes = 0;
             int seconds = 0;
+            int id = (int)parameter;
 
             #region check characters
 
@@ -141,7 +142,7 @@ namespace ReminderApp.MVVM.ViewModels
 
             #endregion
 
-            #region check negative number
+            #region check time limit
 
             if (hours < 0)
             {
@@ -161,9 +162,9 @@ namespace ReminderApp.MVVM.ViewModels
                 return;
             }
 
-            if (seconds < 0 && hours == 0 && minutes == 0)
+            if (seconds < 5 && hours == 0 && minutes == 0)
             {
-                MessageBox.Show("The seconds must be at least 10.",
+                MessageBox.Show("The time must be at least 10 seconds.",
                                    "Error: Seconds",
                                    MessageBoxButton.OK,
                                    MessageBoxImage.Error);
@@ -173,6 +174,7 @@ namespace ReminderApp.MVVM.ViewModels
             #endregion
 
             ReminderModel newReminderModel = new() {
+                Id = id,
                 DayRepeats = this.DayRepeated,
                 Hours = hours,
                 Minutes = minutes,
