@@ -20,7 +20,7 @@
             <Setter Property="Foreground" Value="#1e1b4b"></Setter>
         </Style>
 
-        <Style x:Key="homeMenuButtonItem" TargetType="Button">
+        <Style x:Key="homeMenuButtonItem" TargetType="RadioButton">
             <Setter Property="Margin" Value="10"></Setter>
             <Setter Property="Cursor" Value="Hand"></Setter>
         </Style>
@@ -59,10 +59,10 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal">
-            <Button Style="{StaticResource homeMenuButtonItem}" 
+            <RadioButton Style="{StaticResource homeMenuButtonItem}" 
                 Command="{Binding StopAndBackCommand}">
-                <Button.Template>
-                    <ControlTemplate>
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="RadioButton">
                         <Border Style="{StaticResource homeMenuItemBorder}">
 
                             <Grid Style="{StaticResource homeMenuItemGrid}">
@@ -70,39 +70,55 @@
                                     Style="{StaticResource text}"></TextBlock>
                             </Grid>
                         </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
 
-            <Button Style="{StaticResource homeMenuButtonItem}"
+                    </ControlTemplate>
+                </RadioButton.Template>
+            </RadioButton>
+
+            <RadioButton Style="{StaticResource homeMenuButtonItem}"
+                          IsChecked="{Binding HasStopped, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                     Command="{Binding StopCommand}">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border Style="{StaticResource homeMenuItemBorder}">
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Style="{StaticResource homeMenuItemBorder}">
 
                             <Grid Style="{StaticResource homeMenuItemGrid}">
                                 <TextBlock Text="Stop"
                                         Style="{StaticResource text}"></TextBlock>
                             </Grid>
                         </Border>
-                    </ControlTemplate>
-                </Button.Template>
-            </Button>
 
-            <Button Style="{StaticResource homeMenuButtonItem}"
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#e11d48"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        
+                    </ControlTemplate>
+                </RadioButton.Template>
+            </RadioButton>
+
+            <RadioButton Style="{StaticResource homeMenuButtonItem}"
+                         IsChecked="{Binding HasStarted, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
                     Command="{Binding StartCommand}">
-                <Button.Template>
-                    <ControlTemplate>
-                        <Border Style="{StaticResource homeMenuItemBorder}">
+                <RadioButton.Template>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Style="{StaticResource homeMenuItemBorder}">
 
                             <Grid Style="{StaticResource homeMenuItemGrid}">
                                 <TextBlock Text="Start"
                                     Style="{StaticResource text}"></TextBlock>
                             </Grid>
                         </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#e11d48"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
-                </Button.Template>
-            </Button>
+                </RadioButton.Template>
+            </RadioButton>
         </StackPanel>
 
         <Border  Grid.Row="1"

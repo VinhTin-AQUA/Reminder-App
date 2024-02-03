@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using ReminderApp.MVVM.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,15 +25,16 @@ namespace ReminderApp.Utils
                 Directory.CreateDirectory(Urls.DataUrl);
             }
             using (var fileStream = new FileStream(Urls.RemiderUrl, FileMode.OpenOrCreate, FileAccess.ReadWrite)) { }
-            using (var fileStream = new FileStream(Urls.IdUrl, FileMode.OpenOrCreate, FileAccess.ReadWrite)) 
+            using (var fileStream = new FileStream(Urls.IdUrl, FileMode.OpenOrCreate, FileAccess.ReadWrite))
             {
-                using (var sr = new StreamReader(fileStream) )
+                using (var sr = new StreamReader(fileStream))
                 {
                     var content = await sr.ReadToEndAsync();
-                    if ( content != "")
+                    if (content != "")
                     {
                         Id = int.Parse(content);
-                    } else
+                    }
+                    else
                     {
                         Id = 0;
                     }
@@ -40,6 +42,9 @@ namespace ReminderApp.Utils
             }
 
             await ReadRemindes();
+
+
+            InitImages();
         }
 
         public static async Task SaveReminder(ReminderModel model)
@@ -61,7 +66,7 @@ namespace ReminderApp.Utils
             {
                 var content = await sr.ReadToEndAsync();
                 Reminders = JsonConvert.DeserializeObject<List<ReminderModel>>(content);
-                if(Reminders == null)
+                if (Reminders == null)
                 {
                     Reminders = new List<ReminderModel>();
                 }
@@ -75,7 +80,7 @@ namespace ReminderApp.Utils
                 .Where(r => r.Id == model.Id)
                 .FirstOrDefault();
 
-            if(reminder == null)
+            if (reminder == null)
             {
                 return;
             }
@@ -97,7 +102,7 @@ namespace ReminderApp.Utils
             var reminder = Reminders!
                 .Where(r => r.Id == id)
                 .FirstOrDefault();
-            if(reminder == null)
+            if (reminder == null)
             {
                 return;
             }
@@ -109,7 +114,6 @@ namespace ReminderApp.Utils
             }
         }
 
-
         private static async Task WriteLastedId(int id)
         {
             using (var sw = new StreamWriter(Urls.IdUrl, false))
@@ -118,5 +122,63 @@ namespace ReminderApp.Utils
                 Id++;
             }
         }
+
+        #region private methods
+
+        private static void InitImages()
+        {
+            if (Directory.Exists(Urls.ResourceUrl) == false)
+            {
+                Directory.CreateDirectory(Urls.ResourceUrl);
+            }
+
+            if (Directory.Exists(Urls.ImageUrl) == false)
+            {
+                Directory.CreateDirectory(Urls.ImageUrl);
+            }
+
+            if (File.Exists(Urls.ReminderBackground) == false ||
+                File.Exists(Urls.ReminderIcon) == false)
+            {
+                // Đọc mảng byte từ file
+                byte[] bytes;
+                var baseDirectory = System.AppDomain.CurrentDomain.BaseDirectory.Split("\\bin")[0];
+                var backgroundPath = baseDirectory + "/Resources/ImageData/reminder_background.bin";
+                var iconPath = baseDirectory + "/Resources/ImageData/reminder_icon.bin";
+
+                //C:\Users\tinho\Desktop\Projects\Reminder-App\Reminder App\ReminderApp\bin\Debug\net8.0-windows\
+                using (FileStream fs = new FileStream(backgroundPath, FileMode.Open, FileAccess.Read))
+                {
+                    BinaryReader br = new BinaryReader(fs);
+                    bytes = br.ReadBytes((int)fs.Length);
+
+                }
+
+                using (var ms = new MemoryStream(bytes))
+                {
+                    using (var fs = new FileStream(Urls.ReminderBackground, FileMode.Create))
+                    {
+                        ms.WriteTo(fs);
+                    }
+                }
+
+
+                using (FileStream fs = new FileStream(iconPath, FileMode.Open, FileAccess.Read))
+                {
+                    BinaryReader br = new BinaryReader(fs);
+                    bytes = br.ReadBytes((int)fs.Length);
+                }
+
+                using (var ms = new MemoryStream(bytes))
+                {
+                    using (var fs = new FileStream(Urls.ReminderIcon, FileMode.Create))
+                    {
+                        ms.WriteTo(fs);
+                    }
+                }
+            }
+        }
+
+        #endregion
     }
 }

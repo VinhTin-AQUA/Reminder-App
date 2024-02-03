@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ReminderApp.Stores
 {
-    public static class ReminderStore
+    public static class ImageData
     {
 
     }
