@@ -15,13 +15,20 @@ namespace ReminderApp.MVVM.ViewModels
 {
     public class AddReminderViewModel : ViewModelBase
     {
-        private Array weekDays;
+        //private Array weekDays;
+        private List<DayRepeat> weekDays;
         private ReminderModel reminderModel;
         private string hours;
         private string minutes;
         private string seconds;
 
-        public Array WeekDays
+        //public Array WeekDays
+        //{
+        //    get { return weekDays; }
+        //    set { weekDays = value; OnPropertyChanged(); }
+        //}
+
+        public List<DayRepeat> WeekDays
         {
             get { return weekDays; }
             set { weekDays = value; OnPropertyChanged(); }
@@ -50,7 +57,8 @@ namespace ReminderApp.MVVM.ViewModels
             minutes = "0";
             seconds = "0";
 
-            WeekDays = Enum.GetValues(typeof(DaysOfWeek)); ;
+            //WeekDays = Enum.GetValues(typeof(DaysOfWeek));
+            WeekDays = DayRepeat.GetDayOfWeeks();
             ReminderModel = new ReminderModel();
 
             NavigateHomeViewCommand = new RelayCommand(ExecuteNavigateHomeViewCommand);
@@ -59,20 +67,28 @@ namespace ReminderApp.MVVM.ViewModels
         }
         private void ExecuteNavigateHomeViewCommand(object parameter)
         {
+            var r = MessageBox.Show("Your work has not been saved. Do you want to exit?",
+                "Back", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+
+            if(r == MessageBoxResult.Cancel) 
+            {
+                return;
+            }
             WindowStore.NaivigateHomeChild();
         }
 
         private void ExecuteAddDayOfWeekCommand(object obj)
         {
-            DaysOfWeek dayOfWeek = (DaysOfWeek)obj;
-            int index = ReminderModel.DaysOfWeek.IndexOf(dayOfWeek);
+            DayRepeat dayRepeat = (DayRepeat)obj;
+
+            int index = ReminderModel.DayRepeats.IndexOf(dayRepeat.Id);
             if (index != -1)
             {
-                ReminderModel.DaysOfWeek.RemoveAt(index);
+                ReminderModel.DayRepeats.RemoveAt(index);
             }
             else
             {
-                ReminderModel.DaysOfWeek.Add(dayOfWeek);
+                ReminderModel.DayRepeats.Add(dayRepeat.Id);
             }
         }
 

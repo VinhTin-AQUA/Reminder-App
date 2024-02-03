@@ -44,19 +44,9 @@ namespace ReminderApp.Utils
 
         public static async Task SaveReminder(ReminderModel model)
         {
-            List<ReminderModel>? list = null!;
-            using (var sr = new StreamReader(Urls.RemiderUrl))
-            {
-                var content = await sr.ReadToEndAsync();
-                list = JsonConvert.DeserializeObject<List<ReminderModel>>(content);
-
-            }
-            if(list == null)
-            {
-                list = new List<ReminderModel>();
-            }
-            list!.Add(model);
-            var jsonContent = JsonConvert.SerializeObject(list, Formatting.Indented);
+            await ReadRemindes();
+            Reminders!.Add(model);
+            var jsonContent = JsonConvert.SerializeObject(Reminders, Formatting.Indented);
 
             using (var sw = new StreamWriter(Urls.RemiderUrl, false))
             {
@@ -78,7 +68,30 @@ namespace ReminderApp.Utils
             }
         }
 
+        public static async Task UpdateReminder(ReminderModel model)
+        {
+            //await ReadRemindes();
+            var reminder = Reminders!
+                .Where(r => r.Id == model.Id)
+                .FirstOrDefault();
 
+            if(reminder == null)
+            {
+                return;
+            }
+            reminder.DayRepeats = model.DayRepeats;
+            reminder.Hours = model.Hours;
+            reminder.Minutes = model.Minutes;
+            reminder.Seconds = model.Seconds;
+            reminder.Content = model.Content;
+            var jsonContent = JsonConvert.SerializeObject(Reminders, Formatting.Indented);
+
+            using (var sw = new StreamWriter(Urls.RemiderUrl, false))
+            {
+                await sw.WriteAsync(jsonContent);
+                await WriteLastedId(model.Id);
+            }
+        }
 
 
 

@@ -1,4 +1,5 @@
-﻿using ReminderApp.MVVM.ViewModels;
+﻿using ReminderApp.MVVM.Models;
+using ReminderApp.MVVM.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +33,12 @@ namespace ReminderApp.Stores
         {
             var context = MainWindow!.DataContext as MainViewModel;
             context!.ExecuteRedirectToHomeViewCommand(null!);
+        }
+
+        public static void NaivigateReminderDetailsChild(ReminderModel reminderModel)
+        {
+            var context = MainWindow!.DataContext as MainViewModel;
+            context!.NavigateToReminderDetails(reminderModel);
         }
 
         #endregion

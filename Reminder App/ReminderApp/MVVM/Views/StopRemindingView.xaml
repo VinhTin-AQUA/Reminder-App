@@ -68,8 +68,22 @@
                         <Border Style="{StaticResource homeMenuItemBorder}">
 
                             <Grid Style="{StaticResource homeMenuItemGrid}">
-                                <TextBlock Text="Stop"
+                                <TextBlock Text="Back"
                                 Style="{StaticResource text}"></TextBlock>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button Style="{StaticResource homeMenuButtonItem}">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Border Style="{StaticResource homeMenuItemBorder}">
+
+                            <Grid Style="{StaticResource homeMenuItemGrid}">
+                                <TextBlock Text="Stop"
+                    Style="{StaticResource text}"></TextBlock>
                             </Grid>
                         </Border>
                     </ControlTemplate>
@@ -104,7 +118,7 @@
                       Opacity="1"/>
             </Border.Effect>
 
-            <ScrollViewer Margin="5">
+            <ScrollViewer Margin="5" >
                 <WrapPanel>
                     <ItemsControl ItemsSource="{Binding Reminders, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
                         <ItemsControl.ItemsPanel>
@@ -116,8 +130,8 @@
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 
-                                <CheckBox Width="220"
-                                        Height="80"
+                                <CheckBox Width="250"
+                                        Height="120"
                                         Margin="5">
                                     <CheckBox.Template>
                                         <ControlTemplate TargetType="CheckBox">
@@ -130,7 +144,7 @@
                                                         <Setter Property="Padding" Value="5"></Setter>
                                                         <Setter Property="Effect">
                                                             <Setter.Value>
-                                                                <DropShadowEffect ShadowDepth="0" Color="#65a30d" BlurRadius="5" Opacity="1"/>
+                                                                <DropShadowEffect ShadowDepth="0" Color="#65a30d" BlurRadius="2" Opacity="1"/>
                                                             </Setter.Value>
                                                         </Setter>
 
@@ -144,18 +158,23 @@
 
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding Content}" 
-                                                       FontSize="14"
+                                                       FontSize="25"
                                                        FontWeight="Medium"
                                                        Foreground="#1d4ed8"
-                                                       TextWrapping="Wrap" />
+                                                       TextWrapping="Wrap"/>
                                                     <TextBlock Text="Duration"
-                                                            FontWeight="Medium"/>
+                                                            FontWeight="Medium"
+                                                               FontSize="20"/>
                                                     <StackPanel Orientation="Horizontal">
-                                                        <TextBlock Text="{Binding Hours}" />
+                                                        <TextBlock Text="{Binding Hours}"
+                                                                   FontSize="18"/>
                                                         <TextBlock Text=" : " />
-                                                        <TextBlock Text="{Binding Minutes}" />
-                                                        <TextBlock Text=" : " />
-                                                        <TextBlock Text="{Binding Seconds}" />
+                                                        <TextBlock Text="{Binding Minutes}"
+                                                                   FontSize="18"/>
+                                                        <TextBlock Text=" : "
+                                                                   FontSize="18"/>
+                                                        <TextBlock Text="{Binding Seconds}" 
+                                                                   FontSize="18"/>
                                                     </StackPanel>
                                                 </StackPanel>
                                             </Border>

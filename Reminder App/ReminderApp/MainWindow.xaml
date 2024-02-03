@@ -9,7 +9,7 @@
         xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
         mc:Ignorable="d"
         Title="Reminder App" 
-        Height="500" Width="970"
+        Height="500" Width="900"
         MinWidth="300"
         MinHeight="400"
         WindowStartupLocation="CenterScreen"
@@ -46,6 +46,10 @@
 
         <DataTemplate DataType="{x:Type viewModel:StopRemindingViewModel}">
             <view:StopRemindingView></view:StopRemindingView>
+        </DataTemplate>
+
+        <DataTemplate DataType="{x:Type viewModel:ReminderDetailsViewModel}">
+            <view:ReminderDetailsView></view:ReminderDetailsView>
         </DataTemplate>
 
         <BooleanToVisibilityConverter x:Key="booleanToVisibilityConverter"/>

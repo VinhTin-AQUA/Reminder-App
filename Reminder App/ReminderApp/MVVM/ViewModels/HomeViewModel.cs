@@ -24,6 +24,8 @@ namespace ReminderApp.MVVM.ViewModels
         public ICommand NavigateToAddReminderCommand { get; set; }
         public ICommand NavigateToStopRemindingViewCommand { get; set; }
 
+        public ICommand NavigateToReminderDetailsCommand { get; set; }
+
 
         public HomeViewModel()
         {
@@ -31,6 +33,8 @@ namespace ReminderApp.MVVM.ViewModels
             NavigateToAddReminderCommand = new RelayCommand(ExecuteNavigateToAddReminderCommand);
             NavigateToStopRemindingViewCommand = new RelayCommand(ExecuteNavigateToNavigateToStopRemindingViewCommand);
             Init();
+
+            NavigateToReminderDetailsCommand = new RelayCommand(ExecuteNavigateToReminderDetailsCommand);
         }
 
         private async void Init()
@@ -50,5 +54,12 @@ namespace ReminderApp.MVVM.ViewModels
             var context = WindowStore.MainWindow!.DataContext as MainViewModel;
             context!.ExecuteRedirectToStopRemindingViewCommand(null!);
         }
+
+        private void ExecuteNavigateToReminderDetailsCommand(object parameter)
+        {
+            ReminderModel model = (ReminderModel)parameter;
+            WindowStore.NaivigateReminderDetailsChild(model);
+        }
+
     }
 }

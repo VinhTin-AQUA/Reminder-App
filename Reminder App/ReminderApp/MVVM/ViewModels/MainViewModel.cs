@@ -1,4 +1,5 @@
 ﻿using ReminderApp.MVVM.Core;
+using ReminderApp.MVVM.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,6 +39,11 @@ namespace ReminderApp.MVVM.ViewModels
         public void ExecuteRedirectToStopRemindingViewCommand(object parameter)
         {
             CurrentChildView = new StopRemindingViewModel();
+        }
+
+        public void NavigateToReminderDetails(ReminderModel model)
+        {
+            CurrentChildView = new ReminderDetailsViewModel(model);
         }
     }
 }

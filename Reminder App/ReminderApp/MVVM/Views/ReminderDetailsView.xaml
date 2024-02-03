@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="ReminderApp.MVVM.Views.AddReminderView"
+﻿<UserControl x:Class="ReminderApp.MVVM.Views.ReminderDetailsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:ReminderApp.MVVM.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              xmlns:viewModel="clr-namespace:ReminderApp.MVVM.ViewModels"
+             
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -42,25 +43,25 @@
                             </ToggleButton>
 
                             <ContentPresenter Name="ContentSite" 
-                                              IsHitTestVisible="False"  
-                                              Content="{TemplateBinding SelectionBoxItem}" 
-                                              ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
-                                              ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
-                                              Margin="3"  />
+                                          IsHitTestVisible="False"  
+                                          Content="{TemplateBinding SelectionBoxItem}" 
+                                          ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" 
+                                          ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" 
+                                          Margin="3"  />
 
                             <TextBox x:Name="PART_EditableTextBox" 
-                                     Visibility="Hidden" 
-                                     IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                                 Visibility="Hidden" 
+                                 IsReadOnly="{TemplateBinding IsReadOnly}"/>
 
                             <Popup Name="Popup" 
-                                   Placement="Bottom" 
-                                   IsOpen="{TemplateBinding IsDropDownOpen}" 
-                                   AllowsTransparency="True"  
-                                   Focusable="False" 
-                                   PopupAnimation="Slide">
+                               Placement="Bottom" 
+                               IsOpen="{TemplateBinding IsDropDownOpen}" 
+                               AllowsTransparency="True"  
+                               Focusable="False" 
+                               PopupAnimation="Slide">
                                 <Grid  Name="DropDown" SnapsToDevicePixels="True" 
-                                       MinWidth="{TemplateBinding ActualWidth}" 
-                                       MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                   MinWidth="{TemplateBinding ActualWidth}" 
+                                   MaxHeight="{TemplateBinding MaxDropDownHeight}">
                                     <Border x:Name="DropDownBorder" Background="#fef9c3" />
                                     <ScrollViewer SnapsToDevicePixels="True">
                                         <StackPanel IsItemsHost="True" />
@@ -82,11 +83,11 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="CheckBox">
                         <Border x:Name="comBoxBorder"
-                                Width="20" Height="20"
-                                BorderThickness="1"
-                                BorderBrush="#fbbf24" Background="#ffff">
+                            Width="20" Height="20"
+                            BorderThickness="1"
+                            BorderBrush="#fbbf24" Background="#ffff">
                             <Grid x:Name="comboBoxGrid">
-          
+
                             </Grid>
                         </Border>
 
@@ -100,13 +101,13 @@
                                 <Setter Property="BorderThickness" TargetName="comBoxBorder" Value="0"></Setter>
                                 <Setter Property="Background" TargetName="comboBoxGrid" Value="#fef9c3"></Setter>
                             </Trigger>
-                            
+
                         </ControlTemplate.Triggers>
-                        
+
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-            
+
         </Style>
 
         <Style x:Key="timeHeader" TargetType="TextBlock">
@@ -114,7 +115,7 @@
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="Margin" Value="5,0,5,0"></Setter>
         </Style>
-        
+
         <Style x:Key="timeValue" TargetType="TextBox">
             <Setter Property="FontSize" Value="15"></Setter>
             <Setter Property="Width" Value="40"></Setter>
@@ -137,10 +138,6 @@
 
     </UserControl.Resources>
 
-    <UserControl.DataContext>
-        <viewModel:AddReminderViewModel></viewModel:AddReminderViewModel>
-    </UserControl.DataContext>
-
     <Grid Background="#fff">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"></RowDefinition>
@@ -148,93 +145,92 @@
         </Grid.RowDefinitions>
 
         <Border Grid.Row="0"
-                BorderBrush="#65a30d"
-                BorderThickness="0,0,2,0"
-                Background="#65a30d">
+             BorderBrush="#65a30d"
+             BorderThickness="0,0,2,0"
+             Background="#65a30d">
             <StackPanel Orientation="Horizontal"
-                        VerticalAlignment="Center"
-                        Margin="10,0,0,0">
+                     VerticalAlignment="Center"
+                     Margin="10,0,0,0">
 
                 <Button Command="{Binding NavigateHomeViewCommand}">
                     <Button.Template>
                         <ControlTemplate>
                             <Grid>
                                 <fa:IconImage Style="{StaticResource icon}"
-                                              ToolTip="Back"
-                                  Icon="CaretLeft"></fa:IconImage>
+                                           ToolTip="Back"
+                               Icon="CaretLeft"></fa:IconImage>
                             </Grid>
                         </ControlTemplate>
                     </Button.Template>
                 </Button>
 
-                <ComboBox Margin="10,0,10,0"
-                          ItemsSource="{Binding WeekDays}" 
-                          Width="200"
-                          SelectedIndex="0"
-                          Style="{StaticResource ComboBoxTest2}">
+                <ComboBox x:Name="daysOfWeek" Margin="10,0,10,0"
+                           ItemsSource="{Binding DayRepeats}" 
+                           Width="200"
+                           SelectedIndex="0"
+                           Style="{StaticResource ComboBoxTest2}">
 
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
-                            VerticalAlignment="Center">
+                                    VerticalAlignment="Center">
                                 <CheckBox Margin="0,0,5,0"
-                                      Tag="{Binding}"
-                                      IsChecked="{Binding IsChecked}"
-                                      Command="{Binding DataContext.AddDayOfWeekCommand, RelativeSource={RelativeSource AncestorType=ComboBox}}"
-                                      CommandParameter="{Binding}"
-                                      Style="{StaticResource checkBox}">
+                                           Tag="{Binding}"
+                                          IsChecked="{Binding IsChecked}"
+                                           Command="{Binding DataContext.UpdateDayOfWeekCommand, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                           CommandParameter="{Binding}"
+                                           Style="{StaticResource checkBox}">   
 
                                 </CheckBox>
                                 <TextBlock Text="{Binding Day}"
-                                        FontSize="15"></TextBlock>
+                             FontSize="15"></TextBlock>
                             </StackPanel>
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
 
                 <StackPanel Orientation="Horizontal"
-                VerticalAlignment="Center"
-                Margin="0,0,5,0">
+                             VerticalAlignment="Center"
+                             Margin="0,0,5,0">
 
                     <TextBlock Text="Duration: "
-                   Foreground="#ffffff"
-                   FontSize="15"></TextBlock>
+                                Foreground="#ffffff"
+                                FontSize="15"></TextBlock>
 
                     <TextBlock Text="Hours"
-                   Style="{StaticResource timeHeader}"></TextBlock>
+                                Style="{StaticResource timeHeader}"></TextBlock>
 
                     <TextBox x:Name="hourInput" 
-                 Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                 Style="{StaticResource timeValue}"
-                 ></TextBox>
+                              Text="{Binding Hours, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                              Style="{StaticResource timeValue}"
+              ></TextBox>
 
                     <TextBlock Text="Minutes"
-                   Style="{StaticResource timeHeader}"></TextBlock>
+                                Style="{StaticResource timeHeader}"></TextBlock>
 
                     <TextBox x:Name="minuteInput"
-                 Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                 Style="{StaticResource timeValue}"
-                 ></TextBox>
+                              Text="{Binding Minutes, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                              Style="{StaticResource timeValue}"
+              ></TextBox>
 
                     <TextBlock Text="Seconds"
-                   Style="{StaticResource timeHeader}"></TextBlock>
+                                Style="{StaticResource timeHeader}"></TextBlock>
 
                     <TextBox x:Name="secondInput" 
-                 Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
-                 Style="{StaticResource timeValue}"
-                 ></TextBox>
+                              Text="{Binding Seconds, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}"
+                              Style="{StaticResource timeValue}"
+              ></TextBox>
 
                 </StackPanel>
 
-                <Button Command="{Binding SaveReminderCommand}">
+                <Button Command="{Binding UpdateReminderCommand}">
                     <Button.Template>
                         <ControlTemplate>
-                            <Border CornerRadius="2"
-                                    >
+                            <Border CornerRadius="2">
                                 <Grid>
                                     <fa:IconImage Style="{StaticResource icon}" 
-                                                  ToolTip="Save"
-                                        Icon="Save" IconFont="Solid"></fa:IconImage>
+                                               ToolTip="Save"
+                                     Icon="Save" IconFont="Solid"></fa:IconImage>
                                 </Grid>
                             </Border>
                         </ControlTemplate>
@@ -245,15 +241,15 @@
         </Border>
 
         <Border Grid.Row="1"
-                Margin="5"
-                CornerRadius="5"
-                BorderThickness="2"
-                BorderBrush="#65a30d">
+             Margin="5"
+             CornerRadius="5"
+             BorderThickness="2"
+             BorderBrush="#65a30d">
             <TextBox Padding="10"
-                     Margin="5"
-                     Text="{Binding ReminderModel.Content}"
-                     TextWrapping="Wrap"
-                     FontSize="20" BorderThickness="0"></TextBox>
+                  Margin="5"
+                  Text="{Binding Content}"
+                  TextWrapping="Wrap"
+                  FontSize="20" BorderThickness="0"></TextBox>
         </Border>
     </Grid>
 </UserControl>
