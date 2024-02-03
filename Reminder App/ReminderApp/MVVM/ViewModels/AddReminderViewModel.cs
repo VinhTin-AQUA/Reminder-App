@@ -15,18 +15,11 @@ namespace ReminderApp.MVVM.ViewModels
 {
     public class AddReminderViewModel : ViewModelBase
     {
-        //private Array weekDays;
         private List<DayRepeat> weekDays;
         private ReminderModel reminderModel;
         private string hours;
         private string minutes;
         private string seconds;
-
-        //public Array WeekDays
-        //{
-        //    get { return weekDays; }
-        //    set { weekDays = value; OnPropertyChanged(); }
-        //}
 
         public List<DayRepeat> WeekDays
         {
@@ -41,9 +34,7 @@ namespace ReminderApp.MVVM.ViewModels
         }
 
         public ICommand NavigateHomeViewCommand { get; set; }
-
         public ICommand AddDayOfWeekCommand { get; set; }
-
         public ICommand SaveReminderCommand { get; set; }
         public string Hours { get => hours; set { hours = value; OnPropertyChanged(); } }
         public string Minutes { get => minutes; set { minutes = value; OnPropertyChanged(); } }
@@ -129,7 +120,7 @@ namespace ReminderApp.MVVM.ViewModels
 
             #endregion
 
-            #region check negative number
+            #region check time limit
 
             if (hours < 0)
             {
@@ -149,9 +140,9 @@ namespace ReminderApp.MVVM.ViewModels
                 return;
             }
 
-            if (seconds < 0 && hours == 0 && minutes == 0)
+            if (seconds < 10 && hours == 0 && minutes == 0)
             {
-                MessageBox.Show("The seconds must be at least 10.",
+                MessageBox.Show("The time must be at least 10 seconds.",
                                    "Error: Seconds",
                                    MessageBoxButton.OK,
                                    MessageBoxImage.Error);
