@@ -1,0 +1,197 @@
+﻿<UserControl x:Class="ReminderApp.MVVM.Views.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:ReminderApp.MVVM.Views"
+             xmlns:viewModel="clr-namespace:ReminderApp.MVVM.ViewModels"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style x:Key="homeMenuButtonItem" TargetType="Button">
+            <Setter Property="Margin" Value="0,10,0,10"></Setter>
+            <Setter Property="Cursor" Value="Hand"></Setter>
+        </Style>
+
+        <Style x:Key="homeMenuItemBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="2"></Setter>
+            <Setter Property="CornerRadius" Value="8"></Setter>
+            <Setter Property="Background" Value="#d9f99d"></Setter>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="0" 
+                              Color="#65a30d" 
+                              BlurRadius="5" 
+                              Opacity="1"/>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#7dd3fc"></Setter>
+                </Trigger>
+            </Style.Triggers>
+            
+        </Style>
+
+        <Style x:Key="homeMenuItemGrid" TargetType="Grid">
+            <Setter Property="Background" Value="Transparent"></Setter>
+            <Setter Property="Width" Value="160"></Setter>
+            <Setter Property="Height" Value="30"></Setter>
+        </Style>
+
+        <Style x:Key="homeMenuTextBlockItem" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="15"></Setter>
+            <Setter Property="VerticalAlignment" Value="Center"></Setter>
+            <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+            <Setter Property="FontWeight" Value="Medium"></Setter>
+            <Setter Property="Foreground" Value="#1e1b4b"></Setter>
+        </Style>
+        
+    </UserControl.Resources>
+
+    <UserControl.DataContext>
+        <viewModel:HomeViewModel></viewModel:HomeViewModel>
+    </UserControl.DataContext>
+
+    <Border Background="White"
+            CornerRadius="10">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    BorderThickness="0"
+                    BorderBrush="#f9fafb"
+                    Background="White"
+                    CornerRadius="6" Margin="5">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" 
+                                      Color="Gray" 
+                                      BlurRadius="4" 
+                                      Opacity="1"/>
+                </Border.Effect>
+
+                <StackPanel VerticalAlignment="Top"
+                            HorizontalAlignment="Center">
+                    <Button Style="{StaticResource homeMenuButtonItem}" Command="{Binding NavigateToAddReminderCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+                                <Border Style="{StaticResource homeMenuItemBorder}">
+
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <fa:IconImage Style="{StaticResource iconBtn}" 
+                                                        Icon="PlusSquare"></fa:IconImage>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    <Button Style="{StaticResource homeMenuButtonItem}"
+                            Command="{Binding NavigateToStopRemindingViewCommand}">
+                        <Button.Template>
+                            <ControlTemplate>
+
+                                <Border Style="{StaticResource homeMenuItemBorder}">
+                                    <Grid Style="{StaticResource homeMenuItemGrid}">
+                                        <TextBlock Text="Start"
+                                                    Style="{StaticResource homeMenuTextBlockItem}"></TextBlock>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <Border  Grid.Column="1"
+                    BorderThickness="0"
+                    BorderBrush="#f9fafb"
+                    Background="White"
+                    CornerRadius="6" Margin="5">
+
+                <ScrollViewer Margin="5">
+                    <WrapPanel>
+                        <ItemsControl ItemsSource="{Binding Reminders, UpdateSourceTrigger=PropertyChanged, NotifyOnSourceUpdated=True}">
+
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+
+                                    <Button Width="300"
+                                            Height="150"
+                                            Margin="5"
+                                            Command="{Binding DataContext.NavigateToReminderDetailsCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
+                                            CommandParameter="{Binding}">
+                                        <Button.Template>
+                                            <ControlTemplate>
+                                                <Border>
+                                                    <Border.Style>
+                                                        <Style TargetType="Border">
+                                                            <Setter Property="BorderThickness" Value="2"></Setter>
+                                                            <Setter Property="Background" Value="#d9f99d"></Setter>
+                                                            <Setter Property="CornerRadius" Value="5"></Setter>
+                                                            <Setter Property="Padding" Value="5"></Setter>
+                                                            <Setter Property="Effect">
+                                                                <Setter.Value>
+                                                                    <DropShadowEffect ShadowDepth="0" Color="#65a30d" BlurRadius="5" Opacity="1"/>
+                                                                </Setter.Value>
+                                                            </Setter>
+
+                                                            <Style.Triggers>
+                                                                <Trigger Property="IsMouseOver" Value="True">
+                                                                    <Setter Property="Background" Value="#7dd3fc"></Setter>
+                                                                </Trigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Border.Style>
+
+                                                    <StackPanel>
+                                                        <TextBlock Text="{Binding Content}" 
+                                                                   FontSize="25"
+                                                                   FontWeight="Medium"
+                                                                   Foreground="#1d4ed8"
+                                                                   Width="300"
+                                                                   Height="70"
+                                                                   TextWrapping="WrapWithOverflow" />
+                                                        
+                                                        <TextBlock Text="Duration"
+                                                                    FontWeight="Medium"
+                                                                   FontSize="20"/>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Hours}"
+                                                                       FontSize="18"/>
+                                                            <TextBlock Text=" : "
+                                                                       FontSize="18"/>
+                                                            <TextBlock Text="{Binding Minutes}"
+                                                                       FontSize="18"/>
+                                                            <TextBlock Text=" : " 
+                                                                       FontSize="18"/>
+                                                            <TextBlock Text="{Binding Seconds}"
+                                                                       FontSize="18"/>
+                                                        </StackPanel>
+                                                    </StackPanel>
+                                                </Border>
+                                            </ControlTemplate>
+                                        </Button.Template>
+                                    </Button>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </WrapPanel>
+                </ScrollViewer>
+            </Border>
+        </Grid>
+    </Border>
+</UserControl>
