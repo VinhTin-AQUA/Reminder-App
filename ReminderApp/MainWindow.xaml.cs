@@ -1,4 +1,6 @@
-﻿using System.Runtime.InteropServices;
+﻿using Hardcodet.Wpf.TaskbarNotification;
+using System.IO;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,9 +20,27 @@ namespace ReminderApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private TaskbarIcon tbi;
         public MainWindow()
         {
             InitializeComponent();
+
+            System.Drawing.Icon icon = new System.Drawing.Icon(System.IO.Path.Combine(Directory.GetCurrentDirectory(), "Resources", "Images", "reminder_icon.ico"));
+
+            tbi = new TaskbarIcon();
+            tbi.Icon = icon;
+            tbi.ToolTipText = "Reminder App";
+            tbi.TrayMouseDoubleClick += NotifyIcon_TrayMouseDoubleClick;
+
+            ContextMenu menu = new ContextMenu();
+
+            MenuItem exitmenuItem = new MenuItem
+            {
+                Header = "Exit"
+            };
+            exitmenuItem.Click += ExitMenuItem_Click;
+            menu.Items.Add(exitmenuItem);
+            tbi.ContextMenu = menu;
         }
 
         /* chức năng: khi full màng hình, có thể dùng chuột kéo header để kích thước ứng dụng trở về ban đầu */
@@ -60,11 +80,25 @@ namespace ReminderApp
 
         private void close_Click(object sender, RoutedEventArgs e)
         {
-            var r = MessageBox.Show("Do you want to exist", "Exist", MessageBoxButton.OKCancel, MessageBoxImage.Question);
-            if(r == MessageBoxResult.OK)
-            {
-                Application.Current.Shutdown();
-            }
+            //var r = MessageBox.Show("Do you want to exist", "Exist", MessageBoxButton.OKCancel, MessageBoxImage.Question);
+            //if(r == MessageBoxResult.OK)
+            //{
+            //    Application.Current.Shutdown();
+            //}
+
+            this.Hide();
+        }
+
+        private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Thoát ứng dụng khi người dùng chọn thoát từ menu
+            Application.Current.Shutdown();
+        }
+
+        private void NotifyIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
+        {
+            this.Show();
+            this.WindowState = WindowState.Normal;
         }
     }
 }

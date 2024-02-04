@@ -93,7 +93,7 @@
                                 <Setter TargetName="border" Property="Background" Value="#e11d48"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
-                        
+
                     </ControlTemplate>
                 </RadioButton.Template>
             </RadioButton>
@@ -145,8 +145,8 @@
 
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <CheckBox Width="250"
-                                            Height="120"
+                                <CheckBox Width="300"
+                                            Height="150"
                                             Margin="5"
                                           Command="{Binding DataContext.ChooseReminderCommand, RelativeSource={RelativeSource AncestorType=ItemsControl}}"
                                           CommandParameter="{Binding}">
@@ -175,13 +175,15 @@
 
                                                 <StackPanel>
                                                     <TextBlock Text="{Binding Content}" 
-                                                   FontSize="25"
-                                                   FontWeight="Medium"
-                                                   Foreground="#1d4ed8"
-                                                   TextWrapping="Wrap"/>
+                                                               FontSize="25"
+                                                               FontWeight="Medium"
+                                                               Foreground="#1d4ed8"
+                                                                Width="300"
+                                                                 Height="70"
+                                                                 TextWrapping="WrapWithOverflow"/>
                                                     <TextBlock Text="Duration"
-                                                        FontWeight="Medium"
-                                                           FontSize="20"/>
+                                                            FontWeight="Medium"
+                                                            FontSize="20"/>
                                                     <StackPanel Orientation="Horizontal">
                                                         <TextBlock Text="{Binding Hours}"
                                                                FontSize="18"/>
