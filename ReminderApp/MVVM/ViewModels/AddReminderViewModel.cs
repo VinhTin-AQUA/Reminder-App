@@ -71,7 +71,6 @@ namespace ReminderApp.MVVM.ViewModels
         private void ExecuteAddDayOfWeekCommand(object obj)
         {
             DayRepeat dayRepeat = (DayRepeat)obj;
-
             int index = ReminderModel.DayRepeats.IndexOf(dayRepeat.Id);
             if (index != -1)
             {
@@ -142,7 +141,7 @@ namespace ReminderApp.MVVM.ViewModels
 
             if (seconds < 5 && hours == 0 && minutes == 0)
             {
-                MessageBox.Show("The time must be at least 10 seconds.",
+                MessageBox.Show("The time must be at least 5 seconds.",
                                    "Error: Seconds",
                                    MessageBoxButton.OK,
                                    MessageBoxImage.Error);
