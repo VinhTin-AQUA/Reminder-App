@@ -14,7 +14,7 @@ namespace ReminderApp.Utils
 {
     public static class ReminderDataContext
     {
-        public static int Id { get; set; } = 0;
+        public static int LastId { get; set; } = 0;
 
         public static List<ReminderModel>? Reminders { get; set; }
 
@@ -32,15 +32,14 @@ namespace ReminderApp.Utils
                     var content = await sr.ReadToEndAsync();
                     if (content != "")
                     {
-                        Id = int.Parse(content);
+                        LastId = int.Parse(content);
                     }
                     else
                     {
-                        Id = 0;
+                        LastId = -1;
                     }
                 }
             }
-
             await ReadRemindes();
             InitImages();
         }
@@ -117,7 +116,6 @@ namespace ReminderApp.Utils
             using (var sw = new StreamWriter(Urls.IdUrl, false))
             {
                 await sw.WriteAsync(id.ToString());
-                Id++;
             }
         }
 

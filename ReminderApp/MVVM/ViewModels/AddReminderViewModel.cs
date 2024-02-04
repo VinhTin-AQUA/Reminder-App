@@ -153,7 +153,7 @@ namespace ReminderApp.MVVM.ViewModels
             ReminderModel.Hours = hours;
             ReminderModel.Minutes = minutes;
             ReminderModel.Seconds = seconds;
-            ReminderModel.Id = ++ReminderDataContext.Id;
+            ReminderModel.Id = ++ReminderDataContext.LastId;
 
             await ReminderDataContext.SaveReminder(ReminderModel);
             WindowStore.NaivigateHomeChild();
